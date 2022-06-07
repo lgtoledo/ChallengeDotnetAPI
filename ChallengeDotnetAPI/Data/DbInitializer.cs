@@ -31,10 +31,10 @@ namespace ChallengeDotnetAPI.Data
 
             var characters = new Character[]
             {
-                new Character{Name="Mickey Mouse", Age=10, Weight=10, History="Mickey Mouse is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[0], movies[1]} },
-                new Character{Name="Donald Duck", Age=10, Weight=10, History="Donald Duck is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[2], movies[3]} },
-                new Character{Name="Goofy", Age=10, Weight=10, History="Goofy is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[1], movies[3]} },
-                new Character{Name="Pluto", Age=10, Weight=10, History="Pluto is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[2], movies[1]} },
+                new Character{Name="Mickey Mouse", Age=10, Weight=100, History="Mickey Mouse is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[0], movies[1]} },
+                new Character{Name="Donald Duck", Age=10, Weight=100, History="Donald Duck is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[2], movies[3]} },
+                new Character{Name="Goofy", Age=11, Weight=101, History="Goofy is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[1], movies[3]} },
+                new Character{Name="Pluto", Age=11, Weight=102, History="Pluto is a fictional character in the Disney animated series The Mouse and the Magic Mouse.", Movies= new List<Movie>{movies[2], movies[1]} },
             };
 
             context.Characters.AddRange(characters);
