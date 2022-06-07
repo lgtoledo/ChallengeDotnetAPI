@@ -55,7 +55,7 @@ namespace ChallengeDotnetAPI.Repository
             var baseQuery = from c in _context.Characters
                             select c;
 
-            var nameQuery = string.IsNullOrEmpty(name) ? baseQuery : baseQuery.Where(c => c.Name.Contains(name));
+            var nameQuery = string.IsNullOrEmpty(name) ? baseQuery : baseQuery.Where(c => c.Name.ToLower().Contains(name.ToLower()));
 
             var ageQuery = age == null ? nameQuery : nameQuery.Where(c => c.Age == age);
 
