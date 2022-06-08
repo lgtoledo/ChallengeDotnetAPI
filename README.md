@@ -8,4 +8,4 @@
 ## Oportunidades de mejora
 * Separar las capas de la aplicación en diferentes proyectos
 * Implementar el patrón UnitOfWork para manejar las transacciones a la base de datos de manera centralizada
-* Implementación de clases Response, que incluyan el objeto de respuesta así como el resultado de le operación 
+* Implementación de clases Response, que incluyan el objeto de respuesta así como el resultado de la operación de los métodos de cada repository
