@@ -1,7 +1,6 @@
 ﻿using ChallengeDotnetAPI.Data;
 using ChallengeDotnetAPI.Interface;
 using ChallengeDotnetAPI.Models;
-using ChallengeDotnetAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeDotnetAPI.Repository
@@ -15,19 +14,43 @@ namespace ChallengeDotnetAPI.Repository
             _context = context;
         }
 
-        public async Task<Character> CreateAsync(Character character)
+        public async Task CreateAsync(Character character)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var c = await _context.Characters.AddAsync(character);
+                var entriesNumber = await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while creating: " + ex.Message);
+            }
         }
         
         public async Task DeleteAsync(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Character? character = await _context.Characters.FindAsync(id);
+                if (character != null)
+                {
+                    _context.Characters.Remove(character);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while deleting: " + ex.Message);
+            }
         }
         
         public async Task<bool> ExistsAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.Characters.AnyAsync(e => e.ID == id);
         }
         
         public async Task<List<Character>> GetAllAsync()
@@ -71,9 +94,17 @@ namespace ChallengeDotnetAPI.Repository
             return characters;
         }
         
-        public async Task<Character> UpdateAsync(Character character)
+        public async Task UpdateAsync(Character character)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Entry(character).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while updating: " + ex.Message);
+            }
         }
 
 

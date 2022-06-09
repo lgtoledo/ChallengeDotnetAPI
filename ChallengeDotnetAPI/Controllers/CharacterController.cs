@@ -2,8 +2,10 @@
 using ChallengeDotnetAPI.Models;
 using ChallengeDotnetAPI.Data;
 using Microsoft.EntityFrameworkCore;
-using ChallengeDotnetAPI.Models.DTO;
 using ChallengeDotnetAPI.Interface;
+using AutoMapper;
+using ChallengeDotnetAPI.Mapping.Dto.Character;
+using ChallengeDotnetAPI.Extensions;
 
 namespace ChallengeDotnetAPI.Controllers
 {
@@ -12,18 +14,25 @@ namespace ChallengeDotnetAPI.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly ICharacters _ICharacter;
-        
-        public CharacterController(ICharacters ICharacter)
+        private readonly IMapper _mapper;
+
+        public CharacterController(ICharacters ICharacter, IMapper mapper)
         {
             _ICharacter = ICharacter;
+            _mapper = mapper;
         }
 
         // GET all action
         [HttpGet("details")]
-        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CharacterDto>>> GetAll()
         {
-            var result = await _ICharacter.GetAllAsync();
-            return Ok(result.Select(x => ToDTO(x)));
+            var characters = await _ICharacter.GetAllAsync();
+            var result = _mapper.Map<IEnumerable<Character>, IEnumerable<CharacterDto>>(characters);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
 
@@ -54,29 +63,79 @@ namespace ChallengeDotnetAPI.Controllers
             {
                 return NotFound();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
         }
 
+        
         // POST action
+        [HttpPost]
+        public async Task<ActionResult<Character>> Create([FromBody] SaveCharacterDto characterDto)
+        {
+            try
+            {
+                // checks if the data sent in the request body is valid
+                // based in our data annotations in the model
+                if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+
+                var character = _mapper.Map<SaveCharacterDto, Character>(characterDto);
+                
+                await _ICharacter.CreateAsync(character);
+                var characterSaved = _mapper.Map<Character, SaveCharacterDto> (character);
+
+                return Ok(characterSaved);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         // PUT action
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Character>> Update(int id, [FromBody] SaveCharacterDto characterDto)
+        {
+            try
+            {
+                // checks if the data sent in the request body is valid
+                // based in our data annotations in the model
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.GetErrorMessages());
+
+                var character = _mapper.Map<SaveCharacterDto, Character>(characterDto);
+
+                await _ICharacter.UpdateAsync(character);
+
+                var characterSaved = _mapper.Map<Character, SaveCharacterDto>(character);
+
+                return Ok(characterSaved);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         // DELETE action
-
-
-
-        // Helpers
-        private static CharacterDTO ToDTO(Character character)
+        [HttpDelete("id")]
+        public async Task<ActionResult> Delete(int id)
         {
-            return new CharacterDTO
+            try
             {
-                ID = character.ID,
-                Name = character.Name,
-                Image = character.Image
-            };
+                await _ICharacter.DeleteAsync(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
+
     }
 }
