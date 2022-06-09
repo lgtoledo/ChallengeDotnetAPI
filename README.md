@@ -1,3 +1,5 @@
+
+![This is an image](https://www.alkemy.org/static/media/alkemyLogo.2daef856.svg)
 # CHALLENGE BACKEND - C# .NET (API) 🚀
 
 ## Objetivo
