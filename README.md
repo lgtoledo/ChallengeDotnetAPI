@@ -1,4 +1,14 @@
-# ChallengeDotnetAPI
+# CHALLENGE BACKEND - C# .NET (API) 🚀
+
+## Objetivo
+Desarrollar una API para explorar el mundo de Disney, la cual permitirá conocer y modificar los personajes que lo componen y entender en qué películas estos participaron. Por otro lado, deberá exponer la información para que cualquier frontend pueda consumirla.
+
+- 👉 Utilizar .NET Core.
+- 👉 No es necesario armar el Frontend.
+- 👉 Las rutas deberán seguir el patrón REST.
+- 👉 Utilizar DataAnnotations para el manejo de Autenticación.
+- 👉 Implementar el modelo CodeFirst para el modelado de datos
+
 ## Implementaciones
 * Implementación del patrón Repository
 * Uso de DTOs para limitar los atributos que se envían por la API y desacoplar la capa de servicio de la de datos
