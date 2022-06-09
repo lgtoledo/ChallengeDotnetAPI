@@ -77,12 +77,12 @@ namespace ChallengeDotnetAPI.Controllers
             try
             {
                 // checks if the data sent in the request body is valid
-                // based in our data annotations on Character
+                // based in our data annotations in the model
                 if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
                 var character = _mapper.Map<SaveCharacterDto, Character>(characterDto);
-            
+                
                 await _ICharacter.CreateAsync(character);
                 var characterSaved = _mapper.Map<Character, SaveCharacterDto> (character);
 
@@ -96,7 +96,29 @@ namespace ChallengeDotnetAPI.Controllers
 
 
         // PUT action
-        
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Character>> Update(int id, [FromBody] SaveCharacterDto characterDto)
+        {
+            try
+            {
+                // checks if the data sent in the request body is valid
+                // based in our data annotations in the model
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.GetErrorMessages());
+
+                var character = _mapper.Map<SaveCharacterDto, Character>(characterDto);
+
+                await _ICharacter.UpdateAsync(character);
+
+                var characterSaved = _mapper.Map<Character, SaveCharacterDto>(character);
+
+                return Ok(characterSaved);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         // DELETE action
