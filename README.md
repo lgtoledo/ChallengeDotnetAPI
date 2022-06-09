@@ -11,14 +11,15 @@ Desarrollar una API para explorar el mundo de Disney, la cual permitirá conocer
 - 👉 Utilizar DataAnnotations para el manejo de Autenticación.
 - 👉 Implementar el modelo CodeFirst para el modelado de datos
 
+_
 ## Algunas notas sobre mi desarrollo
-## Buenas prácticas que apliqué y me parece interesante destacar
+#### Buenas prácticas que pude aplicar y me parece interesante destacar
 * Implementación del patrón Repository
 * Uso de DTOs para limitar los atributos que se envían por la API y desacoplar la capa de servicio de la de datos
 * Uso de la librería AutoMapper para facilitar la conversión Modelo<>DTO
 * Se crea una clase como extensión de ModelState para retornar mensajes del resultado de la validación de los datos del request http
 
-## Oportunidades de mejora
+#### Oportunidades de mejora
 * Separar las capas de la aplicación en diferentes proyectos
 * Implementar el patrón UnitOfWork para manejar las transacciones a la base de datos de manera centralizada
 * Implementación de clases Response, que incluyan el objeto de respuesta así como el resultado de la operación de los métodos de cada repository
