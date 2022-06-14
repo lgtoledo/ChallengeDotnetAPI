@@ -24,3 +24,4 @@ _
 * Implementar el patrón UnitOfWork para manejar las transacciones a la base de datos de manera centralizada
 * Implementación de clases Response, que incluyan el objeto de respuesta así como el resultado de la operación de los métodos de cada repository
 * Implementación de excepciones personalizadas
+* Utilizar librería para trabajar con logs, para guardar información relevante para el diagnóstico de errores, así como para analizar eventos de seguridad
